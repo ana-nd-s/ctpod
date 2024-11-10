@@ -9,9 +9,12 @@
       "@assets/*": ["src/assets/*"],
       "@components/*": ["src/components/*"],
       "@constants/*": ["src/components/*"],
+      "@icons/*": ["src/assets/icons/*"],
       "@images/*": ["src/assets/images/*"],
       "@pages/*": ["src/pages/*"],
-      "@utils/*": ["src/utils/*"]
+      "@services/*": ["src/services/*"],
+      "@types/*": ["src/types/*"],
+      "@utils/*": ["src/utils/*"],
     }
   }
 }

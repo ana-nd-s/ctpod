@@ -5,7 +5,7 @@ import {styles} from './styles';
 
 interface ILayoutProps {
   TopComponent: React.ComponentType<any>;
-  BottomComponent: React.ComponentType<any>;
+  BottomComponent: React.ReactNode;
   darkMode: boolean;
 }
 
@@ -26,7 +26,7 @@ const Layout: React.FC<ILayoutProps> = props => {
           {TopComponent && <TopComponent />}
         </View>
         <View style={styles.bottomSection}>
-          {BottomComponent && <BottomComponent />}
+          {BottomComponent && BottomComponent}
         </View>
       </View>
     </KeyboardAwareScrollView>

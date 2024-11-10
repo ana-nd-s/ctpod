@@ -1,23 +1,33 @@
-import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
 import ButtonComponent from '@components/Button';
 import PhoneNumberInput from 'components/PhoneNumberInput';
+import React from 'react';
 import {useTranslation} from 'react-i18next';
 
-const LoginForm: React.FC = () => {
-  const {t} = useTranslation();
+interface ILoginForm {
+  phone: string;
+  setPhone: React.Dispatch<React.SetStateAction<string>>;
+  setCountryCode: React.Dispatch<React.SetStateAction<number | undefined>>;
+  onLogin: () => void;
+}
 
-  const [phoneNumber, setPhoneNumber] = useState<string>('');
+const LoginForm: React.FC<ILoginForm> = props => {
+  const {phone, setPhone, setCountryCode, onLogin} = props;
+  const {t} = useTranslation();
 
   return (
     <>
       <Text style={styles.title}>{t('LOGIN_MESSAGE')}</Text>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>{t('PHONE_NUMBER')}</Text>
-        <PhoneNumberInput value={phoneNumber} onChange={setPhoneNumber} />
+        <PhoneNumberInput
+          value={phone}
+          onChange={setPhone}
+          setCountryCode={setCountryCode}
+        />
       </View>
-      <ButtonComponent title="Login" variant="primary" />
+      <ButtonComponent title="Login" variant="primary" onPress={onLogin} />
     </>
   );
 };

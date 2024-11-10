@@ -3,6 +3,13 @@
     "BRANDING": "Smart travel solutions for your daily needs",
     "LOGIN": "Login",
     "LOGIN_MESSAGE": "Login or create an account",
-    "PHONE_NUMBER": "Phone Number"
+    "PHONE_NUMBER": "Phone Number",
+    "OTP_LOADER": "Reading OTP",
+    "OTP_TITLE": "Enter 6 digit OTP sent to your mobile number",
+    "OTP_LABEL": "Enter OTP",
+    "OTP_ERROR": "Incorrect OTP",
+    "OTP_ERROR_MESSAGE": "Looks like the OTP you’ve entered is incorrect please resend the OTP & enter it again",
+    "VERIFY": "Verify",
+    "RESEND_AGAIN": "Resend Again"
   }
 }

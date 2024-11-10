@@ -3,6 +3,13 @@
     "BRANDING": "Des solutions de voyage intelligentes pour vos besoins quotidiens",
     "LOGIN": "Se connecter",
     "LOGIN_MESSAGE": "Connectez-vous ou créez un compte",
-    "PHONE_NUMBER": "Numéro de téléphone"
+    "PHONE_NUMBER": "Numéro de téléphone",
+    "OTP_LOADER": "Lecture OTP",
+    "OTP_TITLE": "Saisissez l'OTP à 6 chiffres envoyé à votre numéro de mobile",
+    "OTP_LABEL": "Entrez OTP",
+    "OTP_ERROR": "OTP incorrect",
+    "OTP_ERROR_MESSAGE": "Il semble que l'OTP que vous avez saisi soit incorrect. Veuillez renvoyer l'OTP et le saisir à nouveau",
+    "VERIFY": "Vérifier",
+    "RESEND_AGAIN": "Renvoyer à nouveau"
   }
 }
