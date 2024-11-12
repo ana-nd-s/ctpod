@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Alert, Image, StyleSheet, Text, View} from 'react-native';
 import {LoginRequest, VerifyOtpRequest} from 'types/auth';
 import React, {useState} from 'react';
 import {login, resendOtp, verifyOtp} from 'services/auth';
@@ -27,26 +27,28 @@ const Login: React.FC = () => {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
 
   const [showOTPScreen, setShowOtpScreen] = useState(false);
+  const [inProg, setInProg] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(false);
   const [incorrectOtp, setIncorrectOtp] = useState(false);
   const [phone, setPhone] = useState<string>('');
-  const [countryCode, setCountryCode] = useState<number>();
+  const [countryCode, setCountryCode] = useState<string>('');
   const [otp, setOtp] = useState<string>('');
 
   /**
    * handles user login and send an otp to the user phone
    */
   const handleLogin = async () => {
-    if (phone && countryCode) {
-      const formData: LoginRequest = {phone, countryCode};
-      try {
-        const result = await login(formData);
-        if (result.statusCode === 200) {
-          setShowOtpScreen(true);
-        }
-      } catch (error) {
-        console.error(error);
+    setInProg(true);
+    const formData: LoginRequest = {phone, countryCode};
+    try {
+      const result = await login(formData);
+      if (result.statusCode === 200) {
+        setShowOtpScreen(true);
+        setInProg(false);
       }
+    } catch (error: any) {
+      setInProg(false);
+      Alert.alert('Error', error);
     }
   };
 
@@ -55,7 +57,7 @@ const Login: React.FC = () => {
    */
   const handleVerifyOtp = async () => {
     setIsLoading(true);
-    const formData: VerifyOtpRequest = {phone, otp};
+    const formData: VerifyOtpRequest = {phone, otp, countryCode};
     try {
       const result = await verifyOtp(formData);
       if (result.statusCode === 200) {
@@ -94,6 +96,7 @@ const Login: React.FC = () => {
         TopComponent={Branding}
         BottomComponent={
           <LoginForm
+            isLoading={inProg}
             phone={phone}
             setPhone={setPhone}
             setCountryCode={setCountryCode}

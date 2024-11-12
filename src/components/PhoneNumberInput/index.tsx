@@ -8,7 +8,7 @@ import {styles} from './styles';
 interface IPhoneNumberInputProps {
   value: string;
   onChange: (value: string) => void;
-  setCountryCode: React.Dispatch<React.SetStateAction<number | undefined>>;
+  setCountryCode: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const PhoneNumberInput: React.FC<IPhoneNumberInputProps> = props => {
@@ -17,7 +17,6 @@ const PhoneNumberInput: React.FC<IPhoneNumberInputProps> = props => {
   const isDarkColorScheme = Appearance.getColorScheme() === 'dark';
 
   const phoneInput = useRef<PhoneInput>(null);
-  const code = phoneInput.current?.getCallingCode() || 0;
 
   return (
     <PhoneInput
@@ -28,9 +27,7 @@ const PhoneNumberInput: React.FC<IPhoneNumberInputProps> = props => {
       layout="first"
       onChangeText={text => {
         onChange(text);
-        if (code) {
-          setCountryCode(Number(code));
-        }
+        setCountryCode(phoneInput.current?.getCallingCode() || '');
       }}
       placeholder="010 886 4738"
       textInputProps={{

@@ -7,13 +7,14 @@ import {useTranslation} from 'react-i18next';
 
 interface ILoginForm {
   phone: string;
+  isLoading: boolean;
   setPhone: React.Dispatch<React.SetStateAction<string>>;
-  setCountryCode: React.Dispatch<React.SetStateAction<number | undefined>>;
+  setCountryCode: React.Dispatch<React.SetStateAction<string>>;
   onLogin: () => void;
 }
 
 const LoginForm: React.FC<ILoginForm> = props => {
-  const {phone, setPhone, setCountryCode, onLogin} = props;
+  const {phone, isLoading, setPhone, setCountryCode, onLogin} = props;
   const {t} = useTranslation();
 
   return (
@@ -27,7 +28,12 @@ const LoginForm: React.FC<ILoginForm> = props => {
           setCountryCode={setCountryCode}
         />
       </View>
-      <ButtonComponent title="Login" variant="primary" onPress={onLogin} />
+      <ButtonComponent
+        title="Login"
+        variant="primary"
+        isLoading={isLoading}
+        onPress={onLogin}
+      />
     </>
   );
 };

@@ -1,4 +1,4 @@
-import {Pressable, StyleSheet, Text} from 'react-native';
+import {ActivityIndicator, Pressable, StyleSheet, Text} from 'react-native';
 
 import {COLORS} from 'constants/colors';
 import React from 'react';
@@ -6,14 +6,19 @@ import React from 'react';
 interface IButtonComponentProps {
   title: string;
   variant: 'primary' | 'secondary';
+  isLoading?: boolean;
   onPress?: () => void;
 }
 
 const ButtonComponent: React.FC<IButtonComponentProps> = props => {
-  const {title, onPress} = props;
+  const {title, isLoading, onPress} = props;
   return (
-    <Pressable style={styles.button} onPress={onPress}>
-      <Text style={styles.buttonTitle}>{title}</Text>
+    <Pressable style={styles.button} disabled={isLoading} onPress={onPress}>
+      {isLoading ? (
+        <ActivityIndicator size={'small'} color={COLORS.white} />
+      ) : (
+        <Text style={styles.buttonTitle}>{title}</Text>
+      )}
     </Pressable>
   );
 };

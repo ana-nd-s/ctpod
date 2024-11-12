@@ -1,6 +1,6 @@
 export interface LoginRequest {
   phone: string;
-  countryCode: number;
+  countryCode: string;
 }
 
 export interface LoginResponse {
@@ -12,6 +12,7 @@ export interface LoginResponse {
 export interface VerifyOtpRequest {
   phone: string;
   otp: string;
+  countryCode: string;
 }
 
 export interface UserAuthData {
