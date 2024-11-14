@@ -2,7 +2,7 @@ import axios from 'axios';
 import {store} from 'store';
 
 const api = axios.create({
-  baseURL: 'http://172.16.1.21:3000/', // Replace with your API base URL
+  baseURL: 'https://39df-2409-40f2-2055-eaa8-5eab-96a2-a5fd-f109.ngrok-free.app', // Replace with your API base URL
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',

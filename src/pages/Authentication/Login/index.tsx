@@ -3,31 +3,23 @@ import {LoginRequest, VerifyOtpRequest} from 'types/auth';
 import React, {useState} from 'react';
 import {login, resendOtp, verifyOtp} from 'services/auth';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import BootomSheet from 'components/BottomSheet';
 import Branding from '@components/Branding';
 import ButtonComponent from 'components/Button';
 import {COLORS} from 'constants/colors';
 import Layout from '@components/Layout';
 import LoginForm from './Form';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import OTPLoader from './Loader';
 import {OtpInput} from 'react-native-otp-entry';
-import {RootStackParamList} from 'types/navigation';
 import cancelImg from '@assets/icons/cancel-round.png';
-import {useNavigation} from '@react-navigation/native';
+import {setAuthToken} from 'store/authSlice';
+import {useDispatch} from 'react-redux';
 import {useTranslation} from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import { setAuthToken } from 'store/authSlice';
-
-type ProfileScreenNavigationProp = NativeStackNavigationProp<
-  RootStackParamList,
-  'Profile'
->;
 
 const Login: React.FC = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const {t} = useTranslation();
-  const navigation = useNavigation<ProfileScreenNavigationProp>();
 
   const [showOTPScreen, setShowOtpScreen] = useState(false);
   const [inProg, setInProg] = useState<boolean>(false);
@@ -66,10 +58,11 @@ const Login: React.FC = () => {
       if (result.statusCode === 200) {
         const accessToken = result.data.accessToken;
         const refreshToken = result.data.refreshToken;
-        dispatch(setAuthToken({accessToken, refreshToken}))
+        dispatch(setAuthToken({accessToken, refreshToken}));
+        console.warn('storing token......');
+        AsyncStorage.setItem('token', accessToken);
         setIsLoading(false);
         setShowOtpScreen(false);
-        navigation.navigate('Profile');
       }
     } catch (error) {
       console.error(error);
@@ -95,7 +88,7 @@ const Login: React.FC = () => {
       }
     }
   };
- 
+
   return (
     <>
       <Layout
