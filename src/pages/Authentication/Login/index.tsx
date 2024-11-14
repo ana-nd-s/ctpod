@@ -16,6 +16,8 @@ import {RootStackParamList} from 'types/navigation';
 import cancelImg from '@assets/icons/cancel-round.png';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { setAuthToken } from 'store/authSlice';
 
 type ProfileScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -23,6 +25,7 @@ type ProfileScreenNavigationProp = NativeStackNavigationProp<
 >;
 
 const Login: React.FC = () => {
+  const dispatch = useDispatch()
   const {t} = useTranslation();
   const navigation = useNavigation<ProfileScreenNavigationProp>();
 
@@ -61,6 +64,9 @@ const Login: React.FC = () => {
     try {
       const result = await verifyOtp(formData);
       if (result.statusCode === 200) {
+        const accessToken = result.data.accessToken;
+        const refreshToken = result.data.refreshToken;
+        dispatch(setAuthToken({accessToken, refreshToken}))
         setIsLoading(false);
         setShowOtpScreen(false);
         navigation.navigate('Profile');
@@ -89,7 +95,7 @@ const Login: React.FC = () => {
       }
     }
   };
-
+ 
   return (
     <>
       <Layout

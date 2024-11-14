@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {store} from 'store';
 
 const api = axios.create({
   baseURL: 'http://172.16.1.21:3000/', // Replace with your API base URL
@@ -11,9 +12,9 @@ const api = axios.create({
 api.interceptors.request.use(
   config => {
     // Check for the `requiresAuth` flag to determine if a token should be added
-    const token = 'your_token_here'; // Fetch your token from secure storage
-    if (config.headers.requiresAuth && token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
+    const accessToken = store.getState().auth.accessToken
+    if (config.headers.requiresAuth && accessToken) {
+      config.headers['Authorization'] = `Bearer ${accessToken}`;
     }
     // Remove the `requiresAuth` flag to avoid sending it in the request
     delete config.headers.requiresAuth;

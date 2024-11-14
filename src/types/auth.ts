@@ -7,6 +7,7 @@ export interface LoginResponse {
   status: string;
   message: string;
   statusCode: number;
+  data: Object
 }
 
 export interface VerifyOtpRequest {
